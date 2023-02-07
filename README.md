@@ -2,7 +2,7 @@
 <!-- Project Logo will go here -->
 <!-- Project cool buttons such as languages etc. here -->
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/IvoryCoding/spiders-web">
     <img src="logo.png" alt="Logo" width="210" height="210">
   </a>
 </div>
