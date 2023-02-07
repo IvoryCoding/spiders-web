@@ -35,6 +35,7 @@ Disclaimer: This is a project being built in my spare time and some functions ar
 ```
 git clone https://github.com/IvoryCoding/spiders-web
 cd spiders-web
+pip install paramiko
 ```
 ```
 chmod +x spiders-web.py
