@@ -29,7 +29,7 @@ Disclaimer: This is a project being built in my spare time and some functions ar
 # Preview
 
 <!-- image will go here of the preview for the application -->
-<img src="images/spiders-web-preview.png" alt="Logo" width="210" height="210">
+<img src="images/spiders-web-preview.png" alt="Logo">
 
 # Installation and Usage
 
