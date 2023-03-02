@@ -147,6 +147,19 @@ class PromptHelp:
             'max_args' : 1
         },
 
+        'monitor' : {
+            'details' : f'''
+            \r  Connects to the thread that holds the session.
+            \r  Will monitor and send alerts for suspicious activity.
+
+            \r  Command Usage
+            \r  --------------------------------------------------
+            \r  monitor <ip address>
+            ''',
+            'min_args' : 0,
+            'max_args' : 1
+        },
+
         #Do this for all of the commands
 
     }
@@ -163,6 +176,7 @@ class PromptHelp:
             \r  delete      [+]     Deletes a session.
             \r  sessions            Lists all sessions.
             \r  connect     [+]     Connects to the session.
+            \r  monitor     [+]     Monitors connected server.
             \r  exit                Closes the application.
 
             \r Commands with [+] may take additional arguements.
