@@ -98,10 +98,8 @@ if __name__ == '__main__':
 
                 else: #Change this to check if varaible connection established or con_est is not true
                       # Else it is true and print success
-                    print(f"\n{FAIL} {command_list[1]} session for {ORANGE}{command_list[2]}{END} failed to create.\n  Please check help or try again!\n")
+                    print(f"\n{FAIL} {command_list[1]} session for {ORANGE}{command_list[2]}{END} failed to create.\n  Please check help or try again!\n\n")
                     continue
-
-                print(f"\n{SUCCESS} {command_list[1]} session for {ORANGE}{command_list[2]}{END} was created!\n")
 
             elif command == 'save':
                 print(f"\n[{ORANGE}Encrypting{END}] Saving data to a file.\n")
@@ -183,6 +181,17 @@ if __name__ == '__main__':
                 print(f"\n{SUCCESS} All sessions are now closed.")
 
                 sys.exit(0)
+            
+            elif command == 'monitor' and command_list_len == 2:
+                # This command needs to be developed
+                # There will be a function that gets called to monitor the sessions
+                print('Setup a monitor connection for listed sessions and or specific sessions')
+                
+                if command_list[1] == 'all':
+                    print('will monitor all sessions')
+                else:
+                    print('will monitor specific session')
+
             else:
                 print(f"{FAIL} Command \"{command}\" was not found. Use the help command.")
 
@@ -200,3 +209,4 @@ if __name__ == '__main__':
 #   Error handling and try except statements
 #   Handling of what connections are loaded ie if statements for ssh, elif ftp, etc.
 #   Classes in core for ftp, and python scripts
+#   Be more specific with why a command failed if it is a proper command (error handling)

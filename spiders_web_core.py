@@ -154,7 +154,9 @@ class PromptHelp:
 
             \r  Command Usage
             \r  --------------------------------------------------
-            \r  monitor <ip address>
+            \r  monitor <session id> (monitor specific session device)
+            \r      or
+            \r  monitor all (will monitor all sessions and devices)
             ''',
             'min_args' : 0,
             'max_args' : 1
