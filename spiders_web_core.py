@@ -242,7 +242,6 @@ class Base64Conversion:
         return encoded_string
 
 class EncDecFile():
-
     def FileEncryption(data): # Add data_filename, and key_filename
         key = Fernet.generate_key()
 
@@ -270,3 +269,11 @@ class EncDecFile():
 
             conns_update = {thread_ID: [ssh_client, command_list[1], command_list[2], command_list[3], command_list[4]]}
             connections_dict.update(conns_update)
+
+class MonitorSessions():
+    def ConnectionData():
+        print('All basic data from the session(s) to be displayed at the top')
+
+    def GetActivity():
+        print('Will display all activity from the server(s)')
+        # after it displays the latest info then look for user input again? That way they can input commands or to stop monitoring????

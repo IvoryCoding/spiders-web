@@ -189,8 +189,13 @@ if __name__ == '__main__':
                 
                 if command_list[1] == 'all':
                     print('will monitor all sessions')
+                    print(connections_dict)
+                    # for each key in connections_dict:
+                    #   Create or use ssh client to monitor server
                 else:
                     print('will monitor specific session')
+                    # if session_id == key:
+                    #   create or use ssh client to monitor server
 
             else:
                 print(f"{FAIL} Command \"{command}\" was not found. Use the help command.")
