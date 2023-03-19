@@ -183,19 +183,23 @@ if __name__ == '__main__':
                 sys.exit(0)
             
             elif command == 'monitor' and command_list_len == 2:
+                print(f'\n[{ORANGE}SERVER FEED{END}] Attempting to grab the server activity.\n')
                 # This command needs to be developed
                 # There will be a function that gets called to monitor the sessions
-                print('Setup a monitor connection for listed sessions and or specific sessions')
-                
                 if command_list[1] == 'all':
                     print('will monitor all sessions')
                     print(connections_dict)
                     # for each key in connections_dict:
                     #   Create or use ssh client to monitor server
                 else:
-                    print('will monitor specific session')
-                    # if session_id == key:
-                    #   create or use ssh client to monitor server
+                    for key in connections_dict:
+                        if command_list[1] == key:
+                            try:
+                                print(f'\n{SUCCESS} Pulling the server activity to view.\n')
+                                ssh_client = MonitorSessions.ConnectionData(connections_dict[key])
+                                MonitorSessions.GetActivity(ssh_client)
+                            except:
+                                print(f'{FAIL} Could not grab server activity. Please try again.\n')
 
             else:
                 print(f"{FAIL} Command \"{command}\" was not found. Use the help command.")

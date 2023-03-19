@@ -271,9 +271,20 @@ class EncDecFile():
             connections_dict.update(conns_update)
 
 class MonitorSessions():
-    def ConnectionData():
-        print('All basic data from the session(s) to be displayed at the top')
+    # Creates a monitor shell.
+    #   - stop (stops the server feed)
+    #   - ban (bans an ip address from the network)
+    #   - activity (displays the server activity [automatically called when first entering monitor mode])
+    #   - add more for commands that need to be here
+    
+    def ConnectionData(data):
+        print(f'\t\t\t\t{GREEN}DATA GRABBED{END}')
+        print(f'    ip ({data[2]})   |   username ({data[3]})   |   password({data[4]})')
 
-    def GetActivity():
-        print('Will display all activity from the server(s)')
-        # after it displays the latest info then look for user input again? That way they can input commands or to stop monitoring????
+        return data[0]
+
+    def GetActivity(client):
+        print(f'\n\t\t\t{GREEN}Possible Active Connections{END}')
+        cmd = 'netstat --tcp --numeric | grep 22'
+        _stdin, _stdout, _stderr = client.exec_command(cmd)
+        print(_stdout.read().decode())
