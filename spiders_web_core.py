@@ -278,7 +278,7 @@ class MonitorSessions():
     #   - add more for commands that need to be here
     
     def ConnectionData(data):
-        print(f'\t\t\t\t{GREEN}DATA GRABBED{END}')
+        print(f'\t\t\t\t{GREEN}SESSION DATA{END}')
         print(f'    ip ({data[2]})   |   username ({data[3]})   |   password({data[4]})')
 
         return data[0]
@@ -288,3 +288,16 @@ class MonitorSessions():
         cmd = 'netstat --tcp --numeric | grep 22'
         _stdin, _stdout, _stderr = client.exec_command(cmd)
         print(_stdout.read().decode())
+
+        print(f'\t\t\t\t {GREEN}SERVER FEED{END}')
+        cmd = 'grep "authentication failure" /var/log/auth.log'
+        _stdin, _stdout, _stderr = client.exec_command(cmd)
+        print(_stdout.read().decode())
+
+        cmd = 'grep "Failed password" /var/log/auth.log'
+        _stdin, _stdout, _stderr = client.exec_command(cmd)
+        print(_stdout.read().decode())
+
+        # get pointer position
+        # print new lines (run the command compare previous output with new output by reading each line. if line != previous: print)
+        # take user commands
