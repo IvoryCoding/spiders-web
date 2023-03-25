@@ -201,6 +201,11 @@ if __name__ == '__main__':
                             except:
                                 print(f'{FAIL} Could not grab server activity. Please try again.\n')
 
+            elif command == 'rules' and command_list_len >= 1:
+                # Use switch statement for each possible rule
+                # Default is to print all rules in the rules table (dictionary)
+                print(f'\n[{GREEN}Rules{END}] Rules command.\n')
+
             else:
                 print(f"{FAIL} Command \"{command}\" was not found. Use the help command.")
 

@@ -162,6 +162,22 @@ class PromptHelp:
             'max_args' : 1
         },
 
+        'rules' : {
+            'details' : f'''
+            \r  Allows user to set up rules for monitor mode.
+            \r  Rules can be added, removed, modified, etc.
+
+            \r  Command Usage
+            \r  --------------------------------------------------
+            \r  rules <add, remove, modify> <rule name> <rule type> <specifics>
+            \r
+            \r  example:
+            \r  rules add BanPass ban -pa 3 (After 3 password attempts, ban device ip)
+            ''',
+            'min_args' : 0,
+            'max_args' : 1
+        },
+
         #Do this for all of the commands
 
     }
@@ -179,6 +195,7 @@ class PromptHelp:
             \r  sessions            Lists all sessions.
             \r  connect     [+]     Connects to the session.
             \r  monitor     [+]     Monitors connected server.
+            \r  rules       [+]     Create rules for monitor mode.
             \r  exit                Closes the application.
 
             \r Commands with [+] may take additional arguements.
@@ -271,11 +288,13 @@ class EncDecFile():
             connections_dict.update(conns_update)
 
 class MonitorSessions():
-    # Creates a monitor shell.
-    #   - stop (stops the server feed)
-    #   - ban (bans an ip address from the network)
-    #   - activity (displays the server activity [automatically called when first entering monitor mode])
-    #   - add more for commands that need to be here
+    # Use Ctrl + S to suspend monitor mode
+    # Add new command "rules" ie: Spiders-Web> rules <add, remove, modify> <rule name> <rule type> <specifics>
+    # example: rules add BanPass ban -pa 3 (Means, add a rule where after 3 password attempts if failed then ban device[ip].)
+    # example: rules remove BanPass (means it will remove this rule from the rules table)
+    # example: rules modify BanPass -pa 4 (means it will change from 3 attempts before ban to 4 attempts)
+    # example: rules save <filename.extention> (will save the rules table)
+    # example: rules load <filename.extension> (will load previously saved rules table)
     
     def ConnectionData(data):
         print(f'\t\t\t\t{GREEN}SESSION DATA{END}')
