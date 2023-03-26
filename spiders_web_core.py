@@ -10,6 +10,8 @@ from ipaddress import ip_address
 from string import ascii_uppercase, ascii_lowercase, digits
 from cryptography.fernet import Fernet
 
+from spiders_web_hammer import *
+
 # Add colours to use for a custom experience
 GRAY = '\001\033[38;5;246m\002'
 END = '\001\033[0m\002'
@@ -61,8 +63,6 @@ class PromptHelp:
             \r  Command Usage
             \r  --------------------------------------------------
             \r  create ssh <ip> <username> <password>
-            \r  \t\tor
-            \r  create ftp <ip> <username> <password>
             ''',
             'min_args' : 2,
             'max_args' : 4
@@ -173,6 +173,10 @@ class PromptHelp:
             \r
             \r  example:
             \r  rules add BanPass ban -pa 3 (After 3 password attempts, ban device ip)
+            \r
+            \r
+            \r  To view all rules on the table use:
+            \r  rules table
             ''',
             'min_args' : 0,
             'max_args' : 1
@@ -317,6 +321,39 @@ class MonitorSessions():
         _stdin, _stdout, _stderr = client.exec_command(cmd)
         print(_stdout.read().decode())
 
-        # get pointer position
-        # print new lines (run the command compare previous output with new output by reading each line. if line != previous: print)
-        # take user commands
+        # Loop through this every 2 minutes. use Ctrl + S to stop monitor mode
+
+class MonitorRules():
+
+    def ViewRules():
+        print(f'\n[{ORANGE}Grabbing Rules{END}] Grabbing the rules table for viewing')
+        # For each key in rulesTable print key and rules string
+        print(f'\n\t\t   [{GREEN}RULES TABLE{END}]\n')
+
+        print('\t' + '-'*45)
+        for key in rulesTable:
+            print(f'\t|{key.center(10)} | {rulesTable[key].center(30)}|')
+        print('\t' + '-'*45 + '\n')
+
+    def AddRule(cmd_list):
+        print(f'\n[{ORANGE}Adding Rule{END}] Adding specified rule\n')
+
+        # Process the rule command first
+        # ie: ban -pa 3
+        #       or
+        # ie: ban -pa 2 -t 100
+        # (2 password attempts in 100 milliseconds or 1 second) == ban
+
+        Judgement.ProcessCommands(cmd_list[1:])
+
+    def RemoveRule():
+        print(f'[{ORANGE}Removing Rule{END}] Removing specified rule')
+
+    def ModifyRule():
+        print(f'[{ORANGE}Modify Rule{END}] Changing specified rule')
+
+    def SaveRules():
+        print(f'[{ORANGE}Save Rules{END}] Saving rules table to file')
+
+    def LoadRules():
+        print(f'[{ORANGE}Load Rules{END}] Loading rules table to file')

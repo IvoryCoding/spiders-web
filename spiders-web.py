@@ -202,10 +202,19 @@ if __name__ == '__main__':
                                 print(f'{FAIL} Could not grab server activity. Please try again.\n')
 
             elif command == 'rules' and command_list_len >= 1:
-                # Use switch statement for each possible rule
-                # Default is to print all rules in the rules table (dictionary)
-                print(f'\n[{GREEN}Rules{END}] Rules command.\n')
-
+                match command_list[1]:
+                    case 'add':
+                        MonitorRules.AddRule(command_list[1:])
+                    case 'remove':
+                        MonitorRules.RemoveRule(command_list[1:])
+                    case 'modify':
+                        MonitorRules.ModifyRule(command_list[1:])
+                    case 'save':
+                        MonitorRules.SaveRules(command_list[1:])
+                    case 'load':
+                        MonitorRules.LoadRules(command_list[1:])
+                    case 'table':
+                        MonitorRules.ViewRules()
             else:
                 print(f"{FAIL} Command \"{command}\" was not found. Use the help command.")
 
@@ -219,8 +228,4 @@ if __name__ == '__main__':
             print(f"\n{SUCCESS} All sessions are now closed.")
             sys.exit(0)
 
-# Need to do:
-#   Error handling and try except statements
-#   Handling of what connections are loaded ie if statements for ssh, elif ftp, etc.
-#   Classes in core for ftp, and python scripts
-#   Be more specific with why a command failed if it is a proper command (error handling)
+            
