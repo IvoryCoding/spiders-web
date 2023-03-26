@@ -331,29 +331,48 @@ class MonitorRules():
         print(f'\n\t\t   [{GREEN}RULES TABLE{END}]\n')
 
         print('\t' + '-'*45)
-        for key in rulesTable:
-            print(f'\t|{key.center(10)} | {rulesTable[key].center(30)}|')
+        for key in Judgement.rulesTable:
+            print(f'\t|{key.center(10)} | {Judgement.rulesTable[key].center(30)}|')
         print('\t' + '-'*45 + '\n')
 
     def AddRule(cmd_list):
-        print(f'\n[{ORANGE}Adding Rule{END}] Adding specified rule\n')
+        try:
+            Judgement.ProcessCommands(cmd_list[1:])
+            print(f'\n{SUCCESS} Rule was added successfully.\n')
+        except:
+            print(f'\n{FAIL} Rule was not created. Please try again.\n')
 
-        # Process the rule command first
-        # ie: ban -pa 3
-        #       or
-        # ie: ban -pa 2 -t 100
-        # (2 password attempts in 100 milliseconds or 1 second) == ban
+    def RemoveRule(cmd_list):
+        try:
+            del Judgement.rulesTable[cmd_list[1]]
+            print(f'\n{SUCCESS} Rule was removed successfully.\n')
+        except:
+            print(f'\n[{FAIL}] Rule was not found in the rules table. Please try again.\n')
+        # del rulesTable[rule_name]
 
-        Judgement.ProcessCommands(cmd_list[1:])
+    def ModifyRule(cmd_list):
+        try:
+            updateRule = ' '.join(cmd_list[2:])
+            Judgement.rulesTable[cmd_list[1]] = updateRule
+            print(f'\n{SUCCESS} {cmd_list[1]} rule has been modified.\n')
+        except:
+            print(f'\n{FAIL} Could not change rule. Please try again.\n')
 
-    def RemoveRule():
-        print(f'[{ORANGE}Removing Rule{END}] Removing specified rule')
+    def SaveRules(cmd_list):
+        try:
+            with open(cmd_list[1], "w") as fp:
+                json.dump(Judgement.rulesTable, fp)
+        
+            print(f'\n{SUCCESS} Saved the rules table to {cmd_list[1]}\n')
+        except:
+            print(f'\n{FAIL} Rules were not saved correctly. Please try again.\n')
 
-    def ModifyRule():
-        print(f'[{ORANGE}Modify Rule{END}] Changing specified rule')
+    def LoadRules(cmd_list):
+        try:
+            with open(cmd_list[1], 'r') as fp:
+                Judgement.rulesTable = json.load(fp)
+                print(f'\n{SUCCESS} Rules were loaded from the file.\n')
+        except:
+            print(f'\n{FAIL} Rules were not loaded correctly. Please try again.\n')
 
-    def SaveRules():
-        print(f'[{ORANGE}Save Rules{END}] Saving rules table to file')
-
-    def LoadRules():
-        print(f'[{ORANGE}Load Rules{END}] Loading rules table to file')
+        # Something is wrong with the variable rulesTable in this function. The variable comes from the hammer.py
