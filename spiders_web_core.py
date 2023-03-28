@@ -5,6 +5,7 @@ import paramiko
 import base64
 import ast
 import json
+import subprocess
 from threading import Thread
 from ipaddress import ip_address
 from string import ascii_uppercase, ascii_lowercase, digits
@@ -173,7 +174,10 @@ class PromptHelp:
             \r
             \r  example:
             \r  rules add BanPass ban -pa 3 (After 3 password attempts, ban device ip)
-            \r
+            \r  rules remove BanPass (removes the rule from the rules table)
+            \r  rules modify BanPass <complete new command> (changes the command)
+            \r  rules save <filename.extention> (Saves rules to file)
+            \r  rules load <filename.extension> (Loads the rules from a file)
             \r
             \r  To view all rules on the table use:
             \r  rules table
@@ -181,8 +185,6 @@ class PromptHelp:
             'min_args' : 0,
             'max_args' : 1
         },
-
-        #Do this for all of the commands
 
     }
 
@@ -292,14 +294,6 @@ class EncDecFile():
             connections_dict.update(conns_update)
 
 class MonitorSessions():
-    # Use Ctrl + S to suspend monitor mode
-    # Add new command "rules" ie: Spiders-Web> rules <add, remove, modify> <rule name> <rule type> <specifics>
-    # example: rules add BanPass ban -pa 3 (Means, add a rule where after 3 password attempts if failed then ban device[ip].)
-    # example: rules remove BanPass (means it will remove this rule from the rules table)
-    # example: rules modify BanPass -pa 4 (means it will change from 3 attempts before ban to 4 attempts)
-    # example: rules save <filename.extention> (will save the rules table)
-    # example: rules load <filename.extension> (will load previously saved rules table)
-    
     def ConnectionData(data):
         print(f'\t\t\t\t{GREEN}SESSION DATA{END}')
         print(f'    ip ({data[2]})   |   username ({data[3]})   |   password({data[4]})')
@@ -315,13 +309,13 @@ class MonitorSessions():
         print(f'\t\t\t\t {GREEN}SERVER FEED{END}')
         cmd = 'grep "authentication failure" /var/log/auth.log'
         _stdin, _stdout, _stderr = client.exec_command(cmd)
-        print(_stdout.read().decode())
+        Judgement.activityTable['auth'] = _stdout.read().decode()
+        print(f'{Judgement.activityTable["auth"]}')
 
         cmd = 'grep "Failed password" /var/log/auth.log'
         _stdin, _stdout, _stderr = client.exec_command(cmd)
-        print(_stdout.read().decode())
-
-        # Loop through this every 2 minutes. use Ctrl + S to stop monitor mode
+        Judgement.activityTable['pass'] = _stdout.read().decode()
+        print(f'{Judgement.activityTable["pass"]}')
 
 class MonitorRules():
 

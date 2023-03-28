@@ -178,7 +178,7 @@ if __name__ == '__main__':
                     client = connections_dict[key][0]
                     SSH.CloseConnectionSSH(client)
 
-                print(f"\n{SUCCESS} All sessions are now closed.")
+                print(f"\n{SUCCESS} All sessions are now closed.\n")
 
                 sys.exit(0)
             
@@ -197,7 +197,9 @@ if __name__ == '__main__':
                             try:
                                 print(f'\n{SUCCESS} Pulling the server activity to view.\n')
                                 ssh_client = MonitorSessions.ConnectionData(connections_dict[key])
+                                # Loop every minute until suspended (stopped)
                                 MonitorSessions.GetActivity(ssh_client)
+                                # Use Ctrl + S to suspend GetActivity loop
                             except:
                                 print(f'{FAIL} Could not grab server activity. Please try again.\n')
 
@@ -216,7 +218,7 @@ if __name__ == '__main__':
                     case 'table':
                         MonitorRules.ViewRules()
             else:
-                print(f"{FAIL} Command \"{command}\" was not found. Use the help command.")
+                print(f"\n{FAIL} Command \"{command}\" was not found. Use the help command.\n")
 
         except KeyboardInterrupt:
             print(f"\n[{ORANGE}Closing{END}] All sessions in your SPIDER WEB will now close!")
