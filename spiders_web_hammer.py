@@ -9,24 +9,33 @@ class Hammer(): # Class for enforcing the rules
 class Judgement():
     rulesTable = {}
     activityTable = {}
+    activeRules = { 'pa' : 0, 'af' : 0, 't': 0 }
+    # if value ! 0 then Determine pattern from activity
 
-    def ProcessCommands(cmd_list):
-        # Add to rules table. More will come later.
-        Judgement.rulesTable[cmd_list[0]] = ' '.join(cmd_list[1:])
+    def ProcessCommands():
+        print(f'{Judgement.activeRules}')
 
-        rule_command = ' '.join(cmd_list[1:])
-        # Process the rule command first
-        # ie: ban -pa 3
-        #       or
-        # ie: ban -pa 2 -t 100
-        # (2 password attempts in 100 milliseconds or 1 second) == ban
+        # for key in rulesTable:
+        #   list = rulesTable[key].split('-')
+        #   for item in list[1:]:
+        #       key, value = item.split(' ')
+        #       activeRules[key] = value
 
-    def ProcessActivity():
-        # Processes the activity right away
+    def ProcessActivity(activty):
         print(f'Dict \n{Judgement.activityTable}')
+
+        # sudo code for this function
+
+        # last thing this function does
+        # if activity match activeRules then call BanHammer on ip address
 
     def DeterminePatterns():
         print(f'Where it determines a pattern if it fits within the rules')
-        # For each rule in rule list:
-        # compare activity to rule
-        # if action required, call BanHammer()
+        
+        # if activeRules pa value > 0 --> check activityTable pa for pattern that matchs activeRules pa value
+        # if activeRules af value > 0 --> check activityTable af for pattern that matchs activeRules pa value
+
+        # -------------------------------- something like this --------------------------------
+        # for key in activeRules:
+        #   if activeRules[key] > 0:
+        #       Judgement.ProcessActivity(activityTable[key])

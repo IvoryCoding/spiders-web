@@ -310,12 +310,12 @@ class MonitorSessions():
         cmd = 'grep "authentication failure" /var/log/auth.log'
         _stdin, _stdout, _stderr = client.exec_command(cmd)
         Judgement.activityTable['auth'] = _stdout.read().decode()
-        print(f'{Judgement.activityTable["auth"]}')
+        print(f'{Judgement.activityTable["af"]}')
 
         cmd = 'grep "Failed password" /var/log/auth.log'
         _stdin, _stdout, _stderr = client.exec_command(cmd)
         Judgement.activityTable['pass'] = _stdout.read().decode()
-        print(f'{Judgement.activityTable["pass"]}')
+        print(f'{Judgement.activityTable["pa"]}')
 
 class MonitorRules():
 
@@ -331,7 +331,8 @@ class MonitorRules():
 
     def AddRule(cmd_list):
         try:
-            Judgement.ProcessCommands(cmd_list[1:])
+            Judgement.rulesTable[cmd_list[1]] = ' '.join(cmd_list[2:])
+            Judgement.ProcessCommands()
             print(f'\n{SUCCESS} Rule was added successfully.\n')
         except:
             print(f'\n{FAIL} Rule was not created. Please try again.\n')
