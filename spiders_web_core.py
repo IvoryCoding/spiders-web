@@ -309,13 +309,15 @@ class MonitorSessions():
         print(f'\t\t\t\t {GREEN}SERVER FEED{END}')
         cmd = 'grep "authentication failure" /var/log/auth.log'
         _stdin, _stdout, _stderr = client.exec_command(cmd)
-        Judgement.activityTable['auth'] = _stdout.read().decode()
+        Judgement.activityTable['af'] = _stdout.read().decode()
         print(f'{Judgement.activityTable["af"]}')
 
         cmd = 'grep "Failed password" /var/log/auth.log'
         _stdin, _stdout, _stderr = client.exec_command(cmd)
-        Judgement.activityTable['pass'] = _stdout.read().decode()
+        Judgement.activityTable['pa'] = _stdout.read().decode()
         print(f'{Judgement.activityTable["pa"]}')
+
+        Judgement.DeterminePatterns()
 
 class MonitorRules():
 
@@ -340,6 +342,7 @@ class MonitorRules():
     def RemoveRule(cmd_list):
         try:
             del Judgement.rulesTable[cmd_list[1]]
+            # Remove it from the activeRules as well
             print(f'\n{SUCCESS} Rule was removed successfully.\n')
         except:
             print(f'\n[{FAIL}] Rule was not found in the rules table. Please try again.\n')
@@ -349,6 +352,7 @@ class MonitorRules():
         try:
             updateRule = ' '.join(cmd_list[2:])
             Judgement.rulesTable[cmd_list[1]] = updateRule
+            Judgement.ProcessCommands()
             print(f'\n{SUCCESS} {cmd_list[1]} rule has been modified.\n')
         except:
             print(f'\n{FAIL} Could not change rule. Please try again.\n')
