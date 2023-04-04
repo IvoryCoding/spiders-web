@@ -19,10 +19,12 @@ class Judgement():
                 item_list = item.split(' ')
                 Judgement.activeRules[item_list[0]] = item_list[1]
 
-    def ProcessActivity(activty):
-        print(f'Info \n{activty}')
+    def ProcessActivity(activity):
+        print(f'Info \n{activity}')
 
         # sudo code for this function
+
+        # Parse the activity into a dictionary as such -> {'ip': ['date&time-device name-username', 'date&time-device name 2-username'], 'ip2': ['date&time-device name-username', 'date&time-device name 2-username']}
 
         # last thing this function does
         # if activity match activeRules then call BanHammer on ip address

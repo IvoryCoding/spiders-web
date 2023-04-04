@@ -370,6 +370,7 @@ class MonitorRules():
         try:
             with open(cmd_list[1], 'r') as fp:
                 Judgement.rulesTable = json.load(fp)
+                Judgement.ProcessCommands()
                 print(f'\n{SUCCESS} Rules were loaded from the file.\n')
         except:
             print(f'\n{FAIL} Rules were not loaded correctly. Please try again.\n')
