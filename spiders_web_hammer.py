@@ -1,5 +1,4 @@
-
-#rulesTable = {}
+import re
 
 class Hammer(): # Class for enforcing the rules
 
@@ -20,14 +19,21 @@ class Judgement():
                 Judgement.activeRules[item_list[0]] = item_list[1]
 
     def ProcessActivity(activity):
-        print(f'Info \n{activity}')
-
-        # sudo code for this function
-
         # Parse the activity into a dictionary as such -> {'ip': ['date&time-device name-username', 'date&time-device name 2-username'], 'ip2': ['date&time-device name-username', 'date&time-device name 2-username']}
+        activityTimes = {}
 
-        # last thing this function does
-        # if activity match activeRules then call BanHammer on ip address
+        for line in activity.split('\n'):
+            try:
+                date_time = re.search(r'\w+\s+\d+ \d+:\d+:\d+', line).group()
+                ip_address = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', line).group()
+
+                # Now how the fuck do you take these and put them into a idexable list or a dictionary to compare the times
+
+                print(f'{ip_address} | {date_time}')
+            except:
+                return
+        
+        print(f'[test] {activityTimes}')
 
     def DeterminePatterns():
         for key in Judgement.activeRules:
