@@ -19,7 +19,6 @@ class Judgement():
                 Judgement.activeRules[item_list[0]] = item_list[1]
 
     def ProcessActivity(activity):
-        # Parse the activity into a dictionary as such -> {'ip': ['date&time-device name-username', 'date&time-device name 2-username'], 'ip2': ['date&time-device name-username', 'date&time-device name 2-username']}
         activityTimes = {}
 
         for line in activity.split('\n'):
@@ -27,13 +26,17 @@ class Judgement():
                 date_time = re.search(r'\w+\s+\d+ \d+:\d+:\d+', line).group()
                 ip_address = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', line).group()
 
-                # Now how the fuck do you take these and put them into a idexable list or a dictionary to compare the times
+                if ip_address not in activityTimes:
+                    activityTimes[ip_address] = []
 
-                print(f'{ip_address} | {date_time}')
+                activityTimes[ip_address].append(date_time)
+
             except:
-                return
+                print()
         
-        print(f'[test] {activityTimes}')
+        print(f'[times] {activityTimes}\n')
+
+        # Add code to now filter and compare the activity and see if they are a match to the rules
 
     def DeterminePatterns():
         for key in Judgement.activeRules:
