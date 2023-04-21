@@ -1,9 +1,13 @@
 import re
+from spiders_web_settings import *
 
 class Hammer(): # Class for enforcing the rules
 
-    def BanHammer():
-        print(f'The hammer of banning ip addresses.')
+    def BanHammer(ip_address, reason):
+        try:
+            print(f'\n[{ORANGE}BANNED{END}] {RED}{ip_address}{END} was banned for {RED}{reason}{END}!\n')
+        except:
+            print(f'{FAIL} Was unable to ban {RED}{ip_address}{END}. Wait to try again or manually do it.')
 
 class Judgement():
     rulesTable = {}
@@ -32,13 +36,38 @@ class Judgement():
                 activityTimes[ip_address].append(date_time)
 
             except:
-                print()
-        
-        print(f'[times] {activityTimes}\n')
+                pass
 
-        # Add code to now filter and compare the activity and see if they are a match to the rules
+        
+        return activityTimes
 
     def DeterminePatterns():
         for key in Judgement.activeRules:
             if Judgement.activeRules[key] and key != 't':
-                Judgement.ProcessActivity(Judgement.activityTable[key])
+                activity = Judgement.ProcessActivity(Judgement.activityTable[key])
+
+                ################ Compare and Find Patterns ################
+
+                timeConstraint = int(Judgement.activeRules['t'])
+                maxAttempts = int(Judgement.activeRules[key])
+
+                if key == 'pa':
+                    for k_act in activity:
+                        attempts = len(activity[k_act])
+
+                        if attempts >= maxAttempts:
+                            pass
+                            # Check the timings of each attempt and see if within attempts (3 attempts) a password was tried in t (seconds)
+                            # Turn each datetime into timestamp
+                            # ts = datetime.timestamp(item)
+                            # then compare 3 attempts times and see if it falls below t [call banHammer if it does], if more pass
+                        else:
+                            pass
+
+                if key == 'af':
+                    for k_act in activity:
+                        attempts = len(activity[k_act])
+
+                        if attempts >= maxAttempts:
+                            Hammer.BanHammer(k_act, 'Authentication Failure')
+

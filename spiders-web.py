@@ -198,8 +198,12 @@ if __name__ == '__main__':
                                 print(f'\n{SUCCESS} Pulling the server activity to view.\n')
                                 ssh_client = MonitorSessions.ConnectionData(connections_dict[key])
                                 # Loop every minute until suspended (stopped)
-                                MonitorSessions.GetActivity(ssh_client)
-                                # Use Ctrl + S to suspend GetActivity loop
+                                try:
+                                    while True:
+                                        MonitorSessions.GetActivity(ssh_client)
+                                except KeyboardInterrupt:
+                                    pass
+                                
                             except:
                                 print(f'{FAIL} Could not grab server activity. Please try again.\n')
 

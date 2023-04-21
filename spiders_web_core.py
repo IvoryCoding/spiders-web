@@ -5,6 +5,7 @@ import paramiko
 import base64
 import ast
 import json
+import time
 import subprocess
 from threading import Thread
 from ipaddress import ip_address
@@ -12,20 +13,7 @@ from string import ascii_uppercase, ascii_lowercase, digits
 from cryptography.fernet import Fernet
 
 from spiders_web_hammer import *
-
-# Add colours to use for a custom experience
-GRAY = '\001\033[38;5;246m\002'
-END = '\001\033[0m\002'
-GREEN = '\001\033[38;5;82m\002'
-ORANGE = '\033[0;38;5;202m\002'
-RED = '\001\033[1;31m\002'
-MAIN = '\001\033[38;5;85m\002'
-LRED = '\033[0;38;5;202m\002'
-
-# Prefixes
-SUCCESS = f'[{GREEN}SUCCESS{END}]'
-WARN = f'[{ORANGE}WARNING{END}]'
-FAIL = f'[{RED}FAILED{END}]'
+from spiders_web_settings import *
 
 class Cmd_prompt:
     original_prompt = prompt = f"{MAIN}Spiders-Web >{END} "
@@ -153,6 +141,8 @@ class PromptHelp:
             \r  Connects to the thread that holds the session.
             \r  Will monitor and send alerts for suspicious activity.
 
+            \r  You can use Ctrl + C to stop monitoring a session.
+
             \r  Command Usage
             \r  --------------------------------------------------
             \r  monitor <session id> (monitor specific session device)
@@ -195,8 +185,8 @@ class PromptHelp:
             \r  --------------------------------------------------
             \r  help        [+]     Print this message.
             \r  create      [+]     Create custom sessions.
-            \r  save        [+]     Saves all session data.
-            \r  load        [+]     Loads saved session data.
+            \r  save                Saves all session data.
+            \r  load                Loads saved session data.
             \r  delete      [+]     Deletes a session.
             \r  sessions            Lists all sessions.
             \r  connect     [+]     Connects to the session.
@@ -318,6 +308,8 @@ class MonitorSessions():
         print(f'{Judgement.activityTable["pa"]}')
 
         Judgement.DeterminePatterns()
+
+        time.sleep(30)
 
 class MonitorRules():
 
