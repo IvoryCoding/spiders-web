@@ -75,31 +75,34 @@ if __name__ == '__main__':
                     PromptHelp.print_details_help(command_list[1])
 
             elif command == 'create':
-                # Now check the list 1 for type of command (i.e. ssh, ftp, etc)
-                if (command_list[1] == "ssh") and (command_list_len == 5):
-                    #Format for how sessions are created:
-                    # 1. Create a ssh connection
-                    # 2. If established then create thread (for function to run commands)
-                    #       - Create thread id, IP address, date created, Status
-                    # 3. If suspend keys are pressed then move thread (session) to background
+                try:
+                    # Now check the list 1 for type of command (i.e. ssh, ftp, etc)
+                    if (command_list[1] == "ssh") and (command_list_len == 5):
+                        #Format for how sessions are created:
+                        # 1. Create a ssh connection
+                        # 2. If established then create thread (for function to run commands)
+                        #       - Create thread id, IP address, date created, Status
+                        # 3. If suspend keys are pressed then move thread (session) to background
 
-                    ssh_client = SSH.CreateSSH(command_list)
+                        ssh_client = SSH.CreateSSH(command_list)
 
-                    thread_ID = Base64Conversion.EncodeString(command_list)
+                        thread_ID = Base64Conversion.EncodeString(command_list)
 
-                    conns_update = {thread_ID: [ssh_client, command_list[1], command_list[2], command_list[3], command_list[4]]}
-                    connections_dict.update(conns_update)
-                
-                elif command_list[1] == "ftp":
-                    print("ftp")
+                        conns_update = {thread_ID: [ssh_client, command_list[1], command_list[2], command_list[3], command_list[4]]}
+                        connections_dict.update(conns_update)
+                    
+                    elif command_list[1] == "ftp":
+                        print("ftp")
 
-                elif command_list[1] == "python3":
-                    print("Python Script")
+                    elif command_list[1] == "python3":
+                        print("Python Script")
 
-                else: #Change this to check if varaible connection established or con_est is not true
-                      # Else it is true and print success
-                    print(f"\n{FAIL} {command_list[1]} session for {ORANGE}{command_list[2]}{END} failed to create.\n  Please check help or try again!\n\n")
-                    continue
+                    else: #Change this to check if varaible connection established or con_est is not true
+                        # Else it is true and print success
+                        print(f"\n{FAIL} {command_list[1]} session for {ORANGE}{command_list[2]}{END} failed to create.\n  Please check help or try again!\n\n")
+                        continue
+                except:
+                    print(f"{FAIL} Please use help create to learn how to use create command properly.")
 
             elif command == 'save':
                 print(f"\n[{ORANGE}Encrypting{END}] Saving data to a file.\n")
@@ -127,9 +130,10 @@ if __name__ == '__main__':
                     print(f"{FAIL} Loading connections was not successful.")
 
             elif command == 'delete':
-                client = connections_dict[command_list[1]][0]
                 # try: execpt: couldnt find connection ID. Use sessions to get ID. continue
                 try:
+                    client = connections_dict[command_list[1]][0]
+
                     if connections_dict[command_list[1]][1] == 'ssh':
                         SSH.CloseConnectionSSH(client)
                         # Remove the id and connection from the connections_dict
