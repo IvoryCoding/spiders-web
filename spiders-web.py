@@ -208,19 +208,22 @@ if __name__ == '__main__':
                                 print(f'{FAIL} Could not grab server activity. Please try again.\n')
 
             elif command == 'rules' and command_list_len >= 1:
-                match command_list[1]:
-                    case 'add':
-                        MonitorRules.AddRule(command_list[1:])
-                    case 'remove':
-                        MonitorRules.RemoveRule(command_list[1:])
-                    case 'modify':
-                        MonitorRules.ModifyRule(command_list[1:])
-                    case 'save':
-                        MonitorRules.SaveRules(command_list[1:])
-                    case 'load':
-                        MonitorRules.LoadRules(command_list[1:])
-                    case 'table':
-                        MonitorRules.ViewRules()
+                try:
+                    match command_list[1]:
+                        case 'add':
+                            MonitorRules.AddRule(command_list[1:])
+                        case 'remove':
+                            MonitorRules.RemoveRule(command_list[1:])
+                        case 'modify':
+                            MonitorRules.ModifyRule(command_list[1:])
+                        case 'save':
+                            MonitorRules.SaveRules(command_list[1:])
+                        case 'load':
+                            MonitorRules.LoadRules(command_list[1:])
+                        case 'table':
+                            MonitorRules.ViewRules()
+                except:
+                    print(f"{FAIL} Please check the rules help page.\n\thelp rules")
             else:
                 print(f"\n{FAIL} Command \"{command}\" was not found. Use the help command.\n")
 
