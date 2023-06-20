@@ -124,7 +124,7 @@ if __name__ == '__main__':
                 print(f"\n[{ORANGE}Loading{END}] Decrypting file and loading sessions.")
 
                 try:
-                    EncDecFile.FileDecryption(connections_dict)
+                    EncDecFile.FileDecryption(connections_dict, command_list[1])
                     print(f"{SUCCESS} All connections have been loaded.\n")
                 except:
                     print(f"{FAIL} Loading connections was not successful.")

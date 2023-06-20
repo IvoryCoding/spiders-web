@@ -266,12 +266,14 @@ class EncDecFile():
         with open('saved_data.txt', 'wb') as file:
             file.write(encrypted)
 
-    def FileDecryption(connections_dict): # Add data_filename, and key_filename
+    def FileDecryption(connections_dict, filename): # Add data_filename, and key_filename
+
+        print(f"{filename}")
         with open('enc_key.key', 'rb') as file:
             key = file.read()
 
         fernet = Fernet(key)
-        with open('saved_data.txt', 'rb') as file:
+        with open(filename, 'rb') as file:
             data = json.loads(fernet.decrypt(file.read()))
 
         for key in data:
