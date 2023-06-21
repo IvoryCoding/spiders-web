@@ -111,7 +111,7 @@ if __name__ == '__main__':
                         temp_client = connections_dict[key][0]
                         del connections_dict[key][0]
                     
-                    EncDecFile.FileEncryption(connections_dict)
+                    EncDecFile.FileEncryption(connections_dict, command_list[1])
 
                     for key in connections_dict:
                         connections_dict[key].insert(0, temp_client)

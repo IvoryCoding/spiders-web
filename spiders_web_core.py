@@ -255,7 +255,7 @@ class Base64Conversion:
         return encoded_string
 
 class EncDecFile():
-    def FileEncryption(data): # Add data_filename, and key_filename
+    def FileEncryption(data, filename): # Add data_filename, and key_filename
         key = Fernet.generate_key()
 
         with open('enc_key.key', 'wb') as file:
@@ -263,7 +263,7 @@ class EncDecFile():
 
         fernet = Fernet(key)
         encrypted = fernet.encrypt(json.dumps(data).encode())
-        with open('saved_data.txt', 'wb') as file:
+        with open(filename, 'wb') as file:
             file.write(encrypted)
 
     def FileDecryption(connections_dict, filename): # Add data_filename, and key_filename
