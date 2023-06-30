@@ -56,7 +56,9 @@ class Judgement():
                         attempts = len(activity[k_act])
 
                         if attempts >= maxAttempts:
-                            pass
+                            print(f'attempts: {attempts} | activity: {activity[k_act]}')
+                            # Need to see what the data looks like before we can continue
+
                             # Check the timings of each attempt and see if within attempts (3 attempts) a password was tried in t (seconds)
                             # Turn each datetime into timestamp
                             # ts = datetime.timestamp(item)
